@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 class Enemy : public sf::Sprite
 {
@@ -14,13 +15,7 @@ public:
           moveDistance = 0.f,
           scale = 0.5f;
     bool isMove = false,
-         isRight = false,
-         isDown = false;
-
-
-    sf::Vector2f moveDirection;
-    sf::Vector2f moveLeft = sf::Vector2f(-moveSpeed, 0.f);
-    sf::Vector2f moveRight = sf::Vector2f(moveSpeed, 0.f);
+         toRight;
 
     sf::Texture playerTexture;
 
@@ -41,6 +36,7 @@ public:
     Enemy()
     {
         playerTexture.loadFromFile("resources/player.png");
+
         this->setTexture(playerTexture);
         this->setTextureRect(spriteIdleDown);
         this->setScale(scale, scale);
@@ -52,6 +48,5 @@ public:
 
     void controller()
     {
-        
     }
 } enemy;
