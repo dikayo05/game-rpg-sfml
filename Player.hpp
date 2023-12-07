@@ -11,6 +11,7 @@ public:
     int width = 180,
         height = 180;
     float moveSpeed = 4.f,
+          speedUp = 3.5f,
           scale = 0.5f;
     bool isMove = false;
 
@@ -27,6 +28,12 @@ public:
     sf::IntRect spriteMoveDown = sf::IntRect(180, 0, width, height);
     sf::IntRect spriteMoveLeft = sf::IntRect(180, 180, width, height);
     sf::IntRect spriteMoveRight = sf::IntRect(180, 360, width, height);
+
+    // Speed Up Sprite
+    sf::IntRect spriteSpeedUpUp = sf::IntRect(360, 540, width, height);
+    sf::IntRect spriteSpeedUpDown = sf::IntRect(360, 0, width, height);
+    sf::IntRect spriteSpeedUpLeft = sf::IntRect(360, 180, width, height);
+    sf::IntRect spriteSpeedUpRight = sf::IntRect(360, 360, width, height);
 
     sf::IntRect spriteDirection = spriteIdleDown;
 
@@ -52,8 +59,16 @@ public:
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
         {
             isMove;
-            this->move(0, -moveSpeed);
-            this->spriteMove(spriteMoveUp);
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
+            {
+                this->move(0, -moveSpeed * speedUp);
+                this->spriteMove(spriteSpeedUpUp);
+            }
+            else
+            {
+                this->move(0, -moveSpeed);
+                this->spriteMove(spriteMoveUp);
+            }
             spriteDirection = spriteIdleUp;
             !isMove;
         }
@@ -61,8 +76,16 @@ public:
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
         {
             isMove;
-            this->move(0, moveSpeed);
-            this->spriteMove(spriteMoveDown);
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
+            {
+                this->move(0, moveSpeed * speedUp);
+                this->spriteMove(spriteSpeedUpDown);
+            }
+            else
+            {
+                this->move(0, moveSpeed);
+                this->spriteMove(spriteMoveDown);
+            }
             spriteDirection = spriteIdleDown;
             !isMove;
         }
@@ -70,8 +93,16 @@ public:
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
         {
             isMove;
-            this->move(-moveSpeed, 0);
-            this->spriteMove(spriteMoveLeft);
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
+            {
+                this->move(-moveSpeed * speedUp, 0);
+                this->spriteMove(spriteSpeedUpLeft);
+            }
+            else
+            {
+                this->move(-moveSpeed, 0);
+                this->spriteMove(spriteMoveLeft);
+            }
             spriteDirection = spriteIdleLeft;
             !isMove;
         }
@@ -79,8 +110,16 @@ public:
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
         {
             isMove;
-            this->move(moveSpeed, 0);
-            this->spriteMove(spriteMoveRight);
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
+            {
+                this->move(moveSpeed * speedUp, 0);
+                this->spriteMove(spriteSpeedUpRight);
+            }
+            else
+            {
+                this->move(moveSpeed, 0);
+                this->spriteMove(spriteMoveRight);
+            }
             spriteDirection = spriteIdleRight;
             !isMove;
         }

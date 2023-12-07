@@ -3,26 +3,22 @@
 class Ground : public sf::Sprite
 {
 private:
+    sf::Texture groundTexture;
+
 public:
     int width = 96,
         height = 76;
 
-    sf::IntRect groundGrass = sf::IntRect(95, 720, width, height);
-    sf::Texture groundTexture;
-
+    sf::IntRect grass = sf::IntRect(95, 720, width, height);
     
     Ground()
     {
         groundTexture.loadFromFile("resources/map.png");
-        for (int i = 0; i < 500; i += width)
-        {
-            this->setTexture(groundTexture);
-            this->setPosition(i, i);
-        }
+        this->setTexture(groundTexture);
     }
 
-    void setTiles()
+    void setTiles(sf::IntRect groundSprite)
     {
-        this->setTextureRect(groundGrass);
+        this->setTextureRect(groundSprite);
     }
 } ground;

@@ -6,6 +6,7 @@
 int main()
 {
 	sf::View camera;
+	sf::Clock clock; // starts the clock
 
 	// Window
 	unsigned short windowWidth = 800, windowHeight = 600;
@@ -13,7 +14,7 @@ int main()
 	window.setVerticalSyncEnabled(true);
 
 	// Ground
-	ground.setTiles();
+	ground.setTiles(ground.grass);
 
 	// Player
 	player.setPosition(sf::Vector2f(windowWidth / 2, windowHeight / 2));
@@ -30,6 +31,11 @@ int main()
 				window.close();
 		}
 
+		sf::Time elapsed = clock.getElapsedTime();
+
+		if (elapsed.asSeconds() > 2.f)
+			player.setPosition(0.f, 0.f);
+
 		camera.setCenter(player.getPosition().x, player.getPosition().y);
 
 		enemy.controller();
@@ -39,8 +45,16 @@ int main()
 
 		window.clear();
 		window.draw(ground);
-		window.draw(enemy);
-		window.draw(player);
+		if (player.getPosition().y > enemy.getPosition().y)
+		{
+			window.draw(enemy);
+			window.draw(player);
+		}
+		else
+		{
+			window.draw(player);
+			window.draw(enemy);
+		}
 		window.display();
 	}
 
