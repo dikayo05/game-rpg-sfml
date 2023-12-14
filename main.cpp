@@ -6,7 +6,7 @@
 int main()
 {
 	sf::View camera;
-	sf::Clock clock; // starts the clock
+	sf::Clock clock;
 
 	// Window
 	unsigned short windowWidth = 800, windowHeight = 600;
@@ -31,10 +31,8 @@ int main()
 				window.close();
 		}
 
-		sf::Time elapsed = clock.getElapsedTime();
-
-		if (elapsed.asSeconds() > 2.f)
-			player.setPosition(0.f, 0.f);
+		// if (elapsed.asSeconds() > 2.f)
+		// 	player.setPosition(0.f, 0.f);
 
 		camera.setCenter(player.getPosition().x, player.getPosition().y);
 
@@ -54,6 +52,16 @@ int main()
 		{
 			window.draw(player);
 			window.draw(enemy);
+		}
+		if (event.key.code == sf::Keyboard::Space)
+		{
+			sf::Time elapsed = clock.getElapsedTime();
+			window.draw(player.skill);
+
+			if (elapsed.asSeconds() < 2.f)
+			{
+				player.skill.move(3 * elapsed.asSeconds(), 0);
+			}
 		}
 		window.display();
 	}

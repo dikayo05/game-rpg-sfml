@@ -16,6 +16,9 @@ public:
     bool isMove = false;
 
     sf::Texture playerTexture;
+    sf::Texture skillTexture;
+
+    sf::Sprite skill;
 
     // Idle Sprite
     sf::IntRect spriteIdleUp = sf::IntRect(0, 540, width, height);
@@ -35,6 +38,9 @@ public:
     sf::IntRect spriteSpeedUpLeft = sf::IntRect(360, 180, width, height);
     sf::IntRect spriteSpeedUpRight = sf::IntRect(360, 360, width, height);
 
+    // Skill Sprite
+    sf::IntRect spriteSkillFireBall = sf::IntRect(192, 0, 192, 192);
+
     sf::IntRect spriteDirection = spriteIdleDown;
 
     Player()
@@ -44,13 +50,20 @@ public:
         this->setTextureRect(spriteIdleDown);
         this->setScale(scale, scale);
         this->setOrigin(width / 2, height / 2);
+
+        // Skill
+        skillTexture.loadFromFile("resources/skill-vfx.png");
+        skill.setTexture(skillTexture);
+        skill.setTextureRect(spriteSkillFireBall);
     }
 
     void spriteIdle(sf::IntRect spriteDirection) { this->setTextureRect(spriteDirection); }
     void spriteMove(sf::IntRect spriteDirection) { this->setTextureRect(spriteDirection); }
+    void spriteSkill(sf::IntRect spriteSkillType) { this->setTextureRect(spriteSkillType); }
 
     void controller()
     {
+        // Move
         if (!isMove)
         {
             this->spriteIdle(spriteDirection);
@@ -123,5 +136,11 @@ public:
             spriteDirection = spriteIdleRight;
             !isMove;
         }
+
+        // Skill
+        // if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+        // {
+        //     skill.move(2, 0);
+        // }
     }
 } player;
